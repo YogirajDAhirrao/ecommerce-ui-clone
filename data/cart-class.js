@@ -1,15 +1,15 @@
 class Cart{
     cartItems =undefined;
-    localStorageKey = undefined;
+    #localStorageKey = undefined; // # is used to make a property private
 
     constructor(key){
-        this.localStorageKey = key;
-        this.loadFromStorage;
+        this.#localStorageKey = key;
+        this.#loadFromStorage;
     }
 
-    loadFromStorage() {
+    #loadFromStorage() {
 
-        this.cartItems = JSON.parse(localStorage.getItem(this.localStorageKey));
+        this.cartItems = JSON.parse(localStorage.getItem(this.#localStorageKey));
         if (!this.cartItems) {
             this.cartItems = [{
                 productId: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
@@ -23,7 +23,7 @@ class Cart{
         }
     }
     saveToStorage() {
-        localStorage.setItem(this.localStorageKey, JSON.stringify(this.cartItems));
+        localStorage.setItem(this.#localStorageKey, JSON.stringify(this.cartItems));
     }
     AddtoCart(productId) {
         let matchingitem;
@@ -95,7 +95,6 @@ class Cart{
 const cart = new Cart('cart-oop');
 const Business = new Cart('cart-business');
 
-cart.loadFromStorage();
 console.log(Business);
 console.log(cart);
 
