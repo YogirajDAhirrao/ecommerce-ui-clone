@@ -17,7 +17,7 @@ function Cart(localStorageKey) {// function to create objects
             }
         },
 
-        functione() {
+        saveToStorage() {
             localStorage.setItem(localStorageKey, JSON.stringify(this.cartItems));
         },
 
