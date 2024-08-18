@@ -1,5 +1,7 @@
 import {cart, AddtoCart} from '../data/cart.js';
 import {products} from '../data/products.js';
+import {formatCurrency} from './utils/money.js';
+
 // Main Idea of Javascript:
 // 1. Save the data
 // 2. Generate the HTML
@@ -20,14 +22,14 @@ products.forEach((product) => {
 
           <div class="product-rating-container">
             <img class="product-rating-stars"
-              src="images/ratings/rating-${product.rating.stars * 10}.png">
+              src="${product.getStarsUrl()}">
             <div class="product-rating-count link-primary">
               ${product.rating.count}
             </div>
           </div>
 
           <div class="product-price">
-            $${(product.priceCents/100).toFixed(2)}
+            ${product.getPrice()}
           </div>
 
           <div class="product-quantity-container">
@@ -44,6 +46,10 @@ products.forEach((product) => {
               <option value="10">10</option>
             </select>
           </div>
+          ${
+            product.extraInfoHTML() // This is the example of Polymorphism. we dont know which object is being used but it has may forms
+          }
+
 
           <div class="product-spacer"></div>
 

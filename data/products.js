@@ -1,3 +1,5 @@
+import formatCurrency from "../script/utils/money.js";
+
 export function getProduct(productId){
   let matchingProduct;
   
@@ -10,8 +12,48 @@ export function getProduct(productId){
 
 }
 
+class Product{ // this is to convert object into class object
+  id;
+  image;
+  name;
+  rating;
+  priceCents;
+  constructor(proDetails){
+    this.id = proDetails.id;
+    this.image = proDetails.image;
+    this.name = proDetails.name;
+    this.rating = proDetails.rating;
+    this.priceCents = proDetails.priceCents;
+  }
+  getStarsUrl(){
+    return `images/ratings/rating-${this.rating.stars * 10}.png`;
+  }
+  getPrice(){
+    return ` $${(formatCurrency(this.priceCents))}`
 
+  }
+  extraInfoHTML(){
+    return '';
+  }
+}
+class Clothing extends Product{
+  sizeChartLink;
 
+  constructor (productDetails){
+    super(productDetails);// This calls constructor of parent class with paremeter productDetails
+    this.sizeChartLink = productDetails.sizeChartLink;
+
+  }
+  extraInfoHTML(){
+    // this is called method overridding
+    // we can call parent class function using->
+    // super.extraInfoHTML
+    return `<a href = "${this.sizeChartLink}" target = "_blank">Size Chart</a>`;
+  }
+
+}
+
+// Converted each of these to class on
 export const products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
@@ -671,4 +713,10 @@ export const products = [
       "mens"
     ]
   }
-];
+].map((productDetails)=>{
+  if(productDetails.type === 'clothing'){
+    return new Clothing(productDetails);
+  }
+  return new Product(productDetails);
+});
+console.log(products);
