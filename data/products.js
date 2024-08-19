@@ -51,9 +51,28 @@ class Clothing extends Product{
     return `<a href = "${this.sizeChartLink}" target = "_blank">Size Chart</a>`;
   }
 
+};
+export let products = [];
+export function loadProducts(Fun){
+  let xhr = new XMLHttpRequest();
+  xhr.addEventListener('load',()=>{
+    products = JSON.parse(xhr.response).map((productDetails)=>{
+      if(productDetails.type === 'clothing'){
+        return new Clothing(productDetails);
+      }
+      return new Product(productDetails);
+    });
+    console.log('load products');
+
+    Fun();
+  });
+  xhr.open('GET', 'https://supersimplebackend.dev/products');
+  xhr.send();
 }
 
+
 // Converted each of these to class on
+/*
 export const products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
@@ -720,3 +739,4 @@ export const products = [
   return new Product(productDetails);
 });
 console.log(products);
+*/
