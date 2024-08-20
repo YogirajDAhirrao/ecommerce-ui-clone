@@ -70,6 +70,8 @@ export function loadProductsFetch(){
     return new Product(productDetails);
   });
   console.log('load products');
+  }).catch(()=>{
+    console.log("ERROR")
   });
   return promise;
   // instead of callback fetch() uses a promise
@@ -96,6 +98,11 @@ export function loadProducts(Fun){
 
     Fun();
   });
+
+  xhr.addEventListener('error',()=>{
+    console.log("ERROR")
+  }) 
+
   xhr.open('GET', 'https://supersimplebackend.dev/products');
   xhr.send();
 }

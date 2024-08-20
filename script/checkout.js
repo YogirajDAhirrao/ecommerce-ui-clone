@@ -34,8 +34,14 @@ async function loadPage(){ // async make a fxn return a promise
     console.log('load page');
     // loadProductsFetch().then(()=>{}) 
     // instead of this ^, use below
+    // for error handling...
+    try{
     await loadProductsFetch(); // lets us write async code like normal
     // loadproductsfetch will wait for load page 
+    } catch(error){
+        console.log("ERROR")
+
+    }
     renderOrderSummary();
     renderPaymentSummary();
     return 'value 2'
