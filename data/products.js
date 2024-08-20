@@ -53,6 +53,36 @@ class Clothing extends Product{
 
 };
 export let products = [];
+
+export function loadProductsFetch(){
+  // By default fetch makes a 'GET' Request
+  const promise =  fetch(
+    'https://supersimplebackend.dev/products'
+  ).then((response)=>{
+    return response.json(); // get the json or data attached to the response
+    //response.json is asyn it return a promise
+ }).then((productsData)=>{
+   // console.log(productsData);
+   products = productsData.map((productDetails)=>{
+    if(productDetails.type === 'clothing'){
+      return new Clothing(productDetails);
+    }
+    return new Product(productDetails);
+  });
+  console.log('load products');
+  });
+  return promise;
+  // instead of callback fetch() uses a promise
+  // fetch is going to send the request to the backend, when we get a respond it goes to the next step 
+  // it will also save the respond inside a parameter 'response' from backend
+}
+/*
+loadProductsFetch().then(()=>{
+  console.log('next step')
+});
+*/
+
+
 export function loadProducts(Fun){
   let xhr = new XMLHttpRequest();
   xhr.addEventListener('load',()=>{
