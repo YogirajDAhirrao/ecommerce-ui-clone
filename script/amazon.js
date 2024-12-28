@@ -1,6 +1,6 @@
-import { cart, AddtoCart } from '../data/cart.js';
-import { products, loadProducts } from '../data/products.js';
-import { formatCurrency } from './utils/money.js';
+import { cart, AddtoCart } from "../data/cart.js";
+import { products, loadProducts } from "../data/products.js";
+import { formatCurrency } from "./utils/money.js";
 
 loadProducts(renderProductsGrid);
 // Main Idea of Javascript:
@@ -8,12 +8,12 @@ loadProducts(renderProductsGrid);
 // 2. Generate the HTML
 // 3. Make it interactive
 function renderProductsGrid() {
-
-
   let productsHTML = "";
 
   products.forEach((product) => {
-    productsHTML = productsHTML + `
+    productsHTML =
+      productsHTML +
+      `
      <div class="product-container">
           <div class="product-image-container">
             <img class="product-image"
@@ -50,8 +50,9 @@ function renderProductsGrid() {
               <option value="10">10</option>
             </select>
           </div>
-          ${product.extraInfoHTML() // This is the example of Polymorphism. we dont know which object is being used but it has may forms
-      }
+          ${
+            product.extraInfoHTML() // This is the example of Polymorphism. we dont know which object is being used but it has may forms
+          }
 
 
           <div class="product-spacer"></div>
@@ -61,28 +62,25 @@ function renderProductsGrid() {
             Added
           </div>
 
-          <button class="add-to-cart-button button-primary js-add-to-cart" data-product-id="${product.id}">
+          <button class="add-to-cart-button button-primary js-add-to-cart" data-product-id="${
+            product.id
+          }">
             Add to Cart
           </button>
         </div>
     `;
-
-
-
   });
 
-
-  document.querySelector('.js-product-grid').innerHTML = productsHTML;
-  document.querySelectorAll('.js-add-to-cart').forEach((button) => {
-    button.addEventListener('click', () => {
-      const productId = button.dataset.productId;// actually the case is changed here
+  document.querySelector(".js-product-grid").innerHTML = productsHTML;
+  document.querySelectorAll(".js-add-to-cart").forEach((button) => {
+    button.addEventListener("click", () => {
+      const productId = button.dataset.productId; // actually the case is changed here
       AddtoCart(productId);
-      let cartQuantity = 0
+      let cartQuantity = 0;
       cart.forEach((item) => {
         cartQuantity += item.quantity;
       });
-      document.querySelector('.cart-quantity').innerHTML = cartQuantity;
-
+      document.querySelector(".cart-quantity").innerHTML = cartQuantity;
     });
   });
 }
